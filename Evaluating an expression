@@ -1,0 +1,10 @@
+#include<stdio.h>
+
+int main()
+{
+    int d, p, q, n;
+
+    scanf("%d%d%d",&p,&q,&n);
+    d=(p++ + ++q)*n;
+    printf("%d", d);
+}
