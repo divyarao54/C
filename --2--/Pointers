@@ -1,0 +1,15 @@
+#include<stdio.h>
+
+int main()
+{
+    int a, b;
+    int *p=&a;
+
+    scanf("%d", &a);
+
+    *p=*p+1;
+
+    b=*p;
+
+    printf("%d\n%d", a, b);
+}
