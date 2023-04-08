@@ -1,0 +1,26 @@
+#include<stdio.h>
+int getNextValue(int n);
+int getHailstone(int n);
+
+int getNextValue(int n){
+    if(n%2==0)
+        return n/2;
+    else
+        return (3*n)+1;
+}
+
+int getHailstone(int n){
+    if (n==1)
+        printf("%d ", n);
+    else{
+        printf("%d ", n);
+        n=getNextValue(n);
+        getHailstone(n);
+    }
+}
+
+int main(){
+    int n;
+    scanf("%d", &n);
+    getHailstone(n);
+}
