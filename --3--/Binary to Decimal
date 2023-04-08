@@ -1,0 +1,16 @@
+#include<stdio.h>
+
+int main(){
+    int n, sum=0, o=0, p=0;
+
+    scanf("%d", &n);
+
+    while(n){
+        o=n%10;
+        sum=sum+(o*pow(2,p));
+        n=n/10;
+        p++;
+    }
+
+    printf("%d", sum);
+}
