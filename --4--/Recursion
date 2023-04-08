@@ -1,0 +1,23 @@
+//nCr of a number using a recursive function to compute factorial of a number
+
+#include<stdio.h>
+
+int factorial(int n);
+int ncr(int n, int r);
+
+int main(){
+    int n,r,f;
+    scanf("%d%d", &n, &r);
+    printf("%d", ncr(n, r));
+}
+
+int factorial(int n){
+    if (n==0)
+        return 1;
+    else
+        return n*factorial(n-1);
+}
+
+int ncr(int n,int r){
+    return factorial(n)/((factorial(n-r))*(factorial(r)));
+}
