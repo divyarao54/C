@@ -1,0 +1,46 @@
+#include<stdio.h>
+#include<string.h>
+
+typedef struct cricket{
+    char pname[20];
+    char tname[20];
+    int avg;
+}CRICKET;
+
+void readInfo(CRICKET a[], int n);
+void sort(CRICKET a[], int n);
+void display(CRICKET a[], int n);
+
+int main(){
+    CRICKET a[50];
+    int n;
+    scanf("%d", &n);
+    readInfo(a, n);
+    sort(a,n);
+    display(a,n);
+}
+
+void readInfo(CRICKET a[], int n){
+    for(int i=0; i<n; i++){
+        scanf("%s %s %d", &a[i].pname, &a[i].tname, &a[i].avg);
+    }
+}
+
+void sort(CRICKET a[], int n){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n-i-1;j++){
+            if(strcmp(a[j].tname,a[j+1].tname)>0){
+                CRICKET temp;
+                temp=a[j];
+                a[j]=a[j+1];
+                a[j+1]=temp;
+            }    
+        }
+    }
+} 
+
+void display(CRICKET a[], int n){
+   for(int i=0; i<n; i++){
+        printf("%s %s %d\n", a[i].pname, a[i].tname, a[i].avg);
+    } 
+}
