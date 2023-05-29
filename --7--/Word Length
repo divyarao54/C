@@ -1,0 +1,33 @@
+#include<stdio.h>
+#include<string.h>
+
+int countWords(char *text, int *count);
+
+void main(){
+    int count[100];
+    char text[100];
+
+    scanf("%[^\n]", text);
+
+    countWords(text, count);
+}
+
+int countWords(char *text, int *count){
+    int k=0, c=0;
+    int n=strlen(text);
+    for(int i=0; i<=n; i++){
+        if(text[i]==' '||text[i]=='\0'){
+            if(c!=0){
+                count[k++]=c;
+            }
+            c=0;
+        }
+        else{
+            c++;
+        }
+    }
+
+    for(int j=0; j<k; j++){
+        printf("%d ", count[j]);
+    }
+}
