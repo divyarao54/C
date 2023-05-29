@@ -1,0 +1,137 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct node{
+    int info;
+    struct node *next;
+}NODE;
+
+NODE* orderedSLL(NODE *head, int ele);
+void display(NODE *head);
+NODE* merge(NODE *head1, NODE *head2, NODE *head3);
+NODE* freeList(NODE *head);
+NODE* insertLast(NODE* head, int ele);
+
+int main(){
+    NODE *head1=NULL, *head2=NULL, *head3=NULL;
+    int n1, n2, ele;
+
+    scanf("%d", &n1);
+    for(int i=0; i<n1; i++){
+        scanf("%d", &ele);
+        head1=orderedSLL(head1, ele);
+    }
+
+    scanf("%d", &n2);
+    for(int i=0; i<n2; i++){
+        scanf("%d", &ele);
+        head2=orderedSLL(head2, ele);
+    }
+
+    display(head1);
+    printf("\n");
+    display(head2);
+    printf("\n");
+    head3=merge(head1, head2, head3);
+    display(head3);
+    printf("\n");
+
+    head1=freeList(head1);
+    head2=freeList(head2);
+    head3=freeList(head3);
+
+    head1=NULL;
+    head2=NULL;
+    head3=NULL;
+}
+
+NODE* orderedSLL(NODE* head, int ele){
+    NODE *newNode=malloc(sizeof(NODE));
+    newNode->info=ele;
+    newNode->next=NULL;
+    NODE *p=head;
+    NODE *q=NULL;
+    while(p!=NULL && newNode->info>p->info){
+        q=p;
+        p=p->next;
+    }
+
+    if(q==NULL){
+        newNode->next=head;
+        head=newNode;
+    }
+
+    else{
+        newNode->next=p;
+        q->next=newNode;
+    }
+
+    return head;
+}
+
+void display(NODE *head){
+    if(head==NULL){
+        printf("Empty List");
+    }
+
+    else{
+        while(head!=NULL){
+            printf("%d ", head->info);
+            head=head->next;
+        }
+    }    
+}
+
+NODE* merge(NODE *head1, NODE *head2, NODE *head3){
+    NODE *p=head1;
+    NODE *q=head2;
+    while(p!=NULL && q!=NULL){
+        if(p->info<q->info){
+            head3=insertLast(head3, p->info);
+            p=p->next;
+        }
+        else{
+            head3=insertLast(head3, q->info);
+            q=q->next;
+        }
+    }
+
+    while(p!=NULL){
+        head3=insertLast(head3, p->info);
+        p=p->next;
+    }
+
+    while(q!=NULL){
+        head3=insertLast(head3, q->info);
+        q=q->next;
+    }
+
+    return head3;
+}
+
+NODE* insertLast(NODE* head, int ele){
+    NODE *newNode=malloc(sizeof(NODE));
+    newNode->info=ele;
+    newNode->next=NULL;
+    
+    if(head==NULL){
+        return newNode;
+    }
+    NODE *p=head;
+    while(p->next!=NULL){
+        p=p->next;
+    }
+    
+    p->next=newNode;
+    return head;
+}
+
+NODE* freeList(NODE* head){
+    NODE *p;
+    while(head!=NULL){
+        p=head;
+        head=head->next;
+        free(p);
+    }
+    return head;
+}
