@@ -1,0 +1,134 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct node{
+    int info;
+    struct node *next;
+}NODE;
+
+NODE* insertFront(NODE* head, int ele);
+NODE* insertLast(NODE* head, int ele);
+void display(NODE* head);
+NODE* deleteFront(NODE* head, int *pele);
+NODE* deleteLast(NODE* head, int *pele);
+NODE* freeList(NODE* head);
+
+int main(){
+    NODE *head=NULL;
+    int choice;
+    int ele;
+
+    do{
+       scanf("%d", &choice);
+       switch(choice){
+           case 1:  
+            scanf("%d", &ele);
+            head=insertFront(head, ele);
+            break;
+
+           case 2:
+            scanf("%d", &ele);
+            head=insertLast(head, ele);
+            break; 
+
+           case 3:
+            display(head);
+            break;
+
+           case 4:
+            if(head!=NULL){
+                head=deleteFront(head, &ele);
+                printf("\nDeleted element is %d\n", ele);
+            }
+            else{
+                printf("List is already empty\n");
+            }
+            break;
+           case 5:
+            if(head!=NULL){
+                head=deleteLast(head, &ele);
+                printf("Deleted element is %d\n", ele);
+            }
+            else{
+                printf("List is already empty\n");
+            }
+            break;   
+       } 
+    }while(choice<6); 
+    head=freeList(head);
+}
+
+NODE* createNode(int ele){
+    NODE *newNode=malloc(sizeof(NODE));
+    newNode->info=ele;
+    newNode->next=NULL;
+
+    return newNode;
+}
+
+NODE* insertFront(NODE* head, int ele){
+    NODE *newNode=createNode(ele);
+    newNode->next=head;
+    head=newNode;
+
+    return head;
+}
+
+NODE* insertLast(NODE* head, int ele){
+    NODE *newNode=createNode(ele);
+        
+    while(head->next!=NULL){
+        head=head->next;
+    }
+    head->next=newNode;
+
+    return head;
+}
+
+void display(NODE *head){
+    if(head==NULL){
+        printf("Empty List\n");
+    }
+
+    else{
+        while(head!=NULL){
+            printf("%d ", head->info);
+            head=head->next;
+        }
+    }
+}
+
+NODE* deleteFront(NODE* head, int *pele){
+    NODE *p=head;
+    *pele=head->info;
+    head=head->next;
+    free(p);
+    return head;
+}
+
+NODE* deleteLast(NODE* head, int *pele){
+    if(head->next==NULL){
+        *pele=head->info;
+        free(head);
+        return NULL;
+    }
+    
+    NODE *p=head;
+    while(p->next->next!=NULL){
+        p=p->next;
+    }
+    *pele=p->next->info;
+    free(p->next);
+    p->next=NULL;
+    return head;
+}
+
+NODE* freeList(NODE* head){
+    NODE *p;
+    while(head!=NULL){
+        p=head;
+        head=head->next;
+        free(p);
+    }
+    return head;
+}
