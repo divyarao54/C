@@ -1,0 +1,69 @@
+#include<stdio.h>
+
+void readArray(int a[], int n);
+void printUnion(int arr1[], int arr2[], int m, int n);
+void printIntersection(int arr1[], int arr2[], int m, int n);
+
+void main(){
+    int m, n;
+    scanf("%d", &m);
+    int arr1[m];
+    readArray(arr1, m);
+    scanf("%d", &n);
+    int arr2[n];
+    readArray(arr2, n);
+    printUnion(arr1, arr2, m, n);
+    printIntersection(arr1, arr2, m, n);
+}
+
+void readArray(int a[], int n){
+    for(int i=0; i<n; i++)
+        scanf("%d", &a[i]);
+}
+
+void printUnion(int arr1[], int arr2[], int m, int n){
+    int k=0;
+    int res[100];
+
+    for(int i=0, j=0; i<m, j<m; i++, j++){
+        res[j]=arr1[i];
+        k++;
+    }
+
+    for(int j=0; j<n; j++){
+        int c=0;
+        for(int i=0; i<m; i++)
+        {
+            if (arr1[i]==arr2[j])
+                c=1;
+        }
+        if(c!=1){
+            res[k]=arr2[j];
+            k++;
+        }
+    }
+    for(int i=0; i<k; i++){
+        for(int j=i+1; j<k; j++){
+            if(res[i]>res[j]){
+                int temp=res[i];
+                res[i]=res[j];
+                res[j]=temp;
+            }
+        }
+    }
+    for(int i=0; i<k; i++)
+        printf("%d ", res[i]);
+    printf("\n");
+}
+
+void printIntersection(int arr1[], int arr2[], int m, int n){
+    for(int i=0; i<m ;i++){
+        for(int j=0; j<n; j++){
+            if (arr1[i]==arr2[j])
+                printf("%d ", arr1[i]);
+
+
+        }
+    }
+    printf("\n");
+}
