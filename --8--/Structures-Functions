@@ -1,0 +1,32 @@
+#include<stdio.h>
+
+typedef struct complex{
+    float real;
+    float imaginary;
+}COMPLEX;
+
+void readComplex(COMPLEX *a);
+void addComplex(COMPLEX *a, COMPLEX *b, COMPLEX*c);
+void displayComplex(COMPLEX *a);
+
+int main(){
+    COMPLEX a, b, c;
+    
+    readComplex(&a);
+    readComplex(&b);
+    addComplex(&a, &b, &c);
+    displayComplex(&c);
+}
+
+void readComplex(COMPLEX *a){
+    scanf("%f %f", &a->real, &a->imaginary);
+}
+
+void addComplex(COMPLEX *a, COMPLEX *b, COMPLEX *c){
+    c->real=a->real+b->real;
+    c->imaginary=a->imaginary+b->imaginary;
+}
+
+void displayComplex(COMPLEX *a){
+    printf("%0.1f + %0.1fi", a->real, a->imaginary);
+}
