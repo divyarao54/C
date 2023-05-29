@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include<string.h>
+
+void strRep(char *s, char a, char b);
+
+void main(){
+    char s[50], a, b;
+
+    scanf("%[^\n]", s);
+    getchar();
+    scanf("%c", &a);
+    getchar();
+    scanf("%c", &b);
+
+    printf("%s\n", s);
+    strRep(s,a,b);
+    printf("%s", s);
+}
+
+void strRep(char *s, char a, char b){
+    int len=strlen(s);
+    for(int i=0; i<len; i++){
+        if(s[i]==a)
+            
+            s[i]=b;
+    }
+}
