@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<string.h>
+
+void allCharOccur(char *s);
+
+void main(){
+    char s[100];
+    scanf("%[^\n]", s);
+    allCharOccur(s);
+}
+
+
+void allCharOccur(char *s){
+    int u[26]={0};
+    int n=strlen(s);
+    for (int i=0; i<n; i++){
+        if(s[i]>='a' && s[i]<='z'){
+            u[s[i]-'a']++;
+        }
+        else if(s[i]>='A' && s[i]<='Z'){
+            u[s[i]-'A']++;
+        }
+    }
+
+    for(int i=0; i<26; i++){
+        if(u[i]>0){
+            printf("%c %d\n", i+'a', u[i]);
+        }
+    }
+}
+
