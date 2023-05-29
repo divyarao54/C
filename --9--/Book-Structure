@@ -1,0 +1,61 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+typedef struct book{
+    char title[50];
+    char author[50];
+    int price;
+    int year;
+}BOOK;
+
+void readBook(BOOK *b, int n);
+void displayBookYear(BOOK *b, int n);
+void displayBookAuthor(BOOK *b, int n);
+
+int main(){
+    int n;
+    scanf("%d", &n);
+    BOOK *b=malloc(n*sizeof(BOOK));
+    readBook(b,n);
+    printf("Books in the year 2022:\n");
+    displayBookYear(b,n);
+    printf("Books by Chetan Bhagat:\n");
+    displayBookAuthor(b,n);
+    free(b);
+}
+
+void readBook(BOOK *b, int n){
+    for(int i=0; i<n; i++){
+        scanf("%[^\n] %[^\n] %d %d", b[i].title, b[i].author, &b[i].price, &b[i].year);
+        getchar();
+    }
+}
+
+void displayBookYear(BOOK *b, int n){
+    int count=0;
+    for(int i=0; i<n; i++){
+        if(b[i].year==2022){
+            printf("%s %d %s\n", b[i].title, b[i].price, b[i].author);
+            count++;
+        }
+    }
+
+    if(count==0){
+        printf("None\n");
+    }
+}
+
+void displayBookAuthor(BOOK *b, int n){
+    int count=0;
+    for(int i=0; i<n; i++){
+        if(strcmp(b[i].author,"Chetan Bhagat")==0){
+            printf("%s %d %d\n", b[i].title, b[i].year,b[i].price);
+            count++;
+        }
+    }
+
+    if(count==0){
+        printf("None\n");
+    }
+}
