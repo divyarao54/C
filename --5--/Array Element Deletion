@@ -1,0 +1,46 @@
+#include<stdio.h>
+void readArray(int arr[], int n);
+void displayArray(int arr[], int n);
+int checkPosValidity(int n, int pos);
+void delEleAtPos(int arr[], int *n, int pos);
+
+void main(){
+    int n;
+    scanf("%d", &n);
+    int a[n];
+    readArray(a,n);
+    int pos;
+    scanf("%d", &pos);
+    if(!checkPosValidity(n, pos))
+        printf("Invalid position\n");
+    
+    else{
+        displayArray(a,n);
+        delEleAtPos(a, &n, pos);
+        displayArray(a,n);
+    }
+}
+
+void readArray(int arr[], int n){
+    for(int i=0; i<n; i++)
+        scanf("%d", &arr[i]);
+}
+
+void displayArray(int arr[], int n){
+    for(int i=0; i<n; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+
+int checkPosValidity(int n, int pos){
+    if (pos>=n||pos<0)
+        return 0;
+    else
+        return 1;
+}
+
+void delEleAtPos(int arr[], int *n, int pos){
+    for(int i=pos;i<*n-1;i++)
+        arr[i]=arr[i+1];
+    (*n)--;
+}
