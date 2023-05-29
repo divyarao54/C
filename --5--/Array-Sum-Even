@@ -1,0 +1,38 @@
+#include<stdio.h>
+
+void readArray(int arr[], int n);
+int sumDigits(int n);
+int EvenNoSumDigits(int arr[], int n);
+
+void main(){
+    int n;
+    scanf("%d", &n);
+    int a[n];
+    readArray(a, n);
+    printf("%d", EvenNoSumDigits(a, n));
+}
+
+void readArray(int arr[], int n){
+    for(int i=0; i<n; i++)
+        scanf("%d", &arr[i]);
+}
+
+int sumDigits(int n){
+    int sum=0;
+    int rem;
+    while(n!=0){
+        rem=n%10;
+        sum=sum+rem;
+        n=n/10;
+    }
+    return sum;
+}
+
+int EvenNoSumDigits(int arr[], int n){
+    int even_sum=0;
+    for(int i=0; i<n; i++){
+        if(arr[i]%2==0)
+            even_sum=even_sum+sumDigits(arr[i]);
+    }
+    return even_sum;    
+}
