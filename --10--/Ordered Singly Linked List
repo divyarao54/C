@@ -1,0 +1,113 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct node{
+    int info;
+    struct node *next;
+}NODE;
+
+NODE* orderedSLL(NODE* head, int ele);
+void display(NODE *head);
+int sumAlternate(NODE *head);
+int sumEvenData(NODE *head);
+int sumOddData(NODE *head);
+NODE* freeList(NODE* head);
+
+int main(){
+    NODE *head=NULL;
+    int n;
+    int ele;
+    int sum;
+
+    scanf("%d", &n);
+    for(int i=0; i<n; i++){
+        scanf("%d", &ele);
+        head= orderedSLL(head,ele);
+    }
+    display(head);
+    printf("\n");
+    sum=sumAlternate(head);
+    printf("%d\n", sum);
+    sum=sumEvenData(head);
+    printf("%d\n", sum);
+    sum=sumOddData(head);
+    printf("%d\n", sum);
+
+    head=freeList(head);
+}
+
+NODE* orderedSLL(NODE* head, int ele){
+    NODE *newNode=malloc(sizeof(NODE));
+    newNode->info=ele;
+    newNode->next=NULL;
+    NODE *p=head;
+    NODE *q=NULL;
+    while(p!=NULL && newNode->info>p->info){
+        q=p;
+        p=p->next;
+    }
+
+    if(q==NULL){
+        newNode->next=head;
+        head=newNode;
+    }
+
+    else{
+        newNode->next=p;
+        q->next=newNode;
+    }
+
+    return head;
+}
+
+void display(NODE *head){
+    while(head!=NULL){
+        printf("%d ", head->info);
+        head=head->next;
+    }
+}
+
+int sumAlternate(NODE *head){
+    int c=0;
+    int sum=0;
+    while(head!=NULL){
+        if(c%2==0){
+            sum=sum+head->info;    
+        }
+        c++;
+        head=head->next;
+    }
+    return sum;
+}
+
+int sumEvenData(NODE *head){
+    int sum=0;
+    while(head!=NULL){
+        if(head->info%2==0){
+            sum=sum+head->info;
+        }
+        head=head->next;   
+    }
+    return sum;
+}
+
+int sumOddData(NODE *head){
+    int sum=0;
+    while(head!=NULL){
+        if(head->info%2!=0){
+            sum=sum+head->info;
+        }
+        head=head->next;
+    }
+    return sum;
+}
+
+NODE* freeList(NODE* head){
+    NODE *p;
+    while(head!=NULL){
+        p=head;
+        head=head->next;
+        free(p);
+    }
+    return head;
+}
