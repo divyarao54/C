@@ -1,0 +1,34 @@
+#include<stdio.h>
+
+void Concatenate(char *s1, char *s2);
+
+void main(){
+    char s1[50], s2[50];
+    int n;
+
+    scanf("%[^\n]", s1);
+    getchar();
+    scanf("%[^\n]", s2);
+    getchar();
+    scanf("%d", &n);
+
+    while(n){
+        Concatenate(s1, s2);
+        n--;
+    }
+
+    printf("%s", s1);
+
+}
+
+void Concatenate(char *s1, char *s2){
+    while(*s1)
+        s1++;
+    
+    while(*s2){
+        *s1=*s2;
+        s1++;
+        s2++;
+    }
+    *s1='\0';
+}
