@@ -1,0 +1,38 @@
+#include<stdio.h>
+
+typedef struct distance{
+    int Feet;
+    float Inch;
+}DISTANCE;
+
+void readDistance(DISTANCE *d);
+DISTANCE addDistance(DISTANCE *d1, DISTANCE *d2);
+void displayDistance(DISTANCE *d);
+
+int main(){
+    DISTANCE d1, d2, d3;
+    
+    readDistance(&d1);
+    readDistance(&d2);
+    d3=addDistance(&d1, &d2);
+    displayDistance(&d3);
+}
+
+void readDistance(DISTANCE *d){
+    scanf("%d %f", &d->Feet, &d->Inch);
+}
+
+DISTANCE addDistance(DISTANCE *d1, DISTANCE *d2){
+    DISTANCE res;
+    res.Feet=d1->Feet+d2->Feet;
+    res.Inch=d1->Inch+d2->Inch;
+    if(res.Inch>=12){
+        res.Feet+=1;
+        res.Inch-=12;
+    }
+    return res;
+}
+
+void displayDistance(DISTANCE *d){
+    printf("%d'-%0.1f", d->Feet, d->Inch);
+}
